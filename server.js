@@ -1,7 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');// I think fs means file system
-
+const port = process.env.PORT || 3000; //this is used to set port for heroku and port for our local server
 
 
 const app = express();
@@ -32,7 +32,8 @@ next();
 });
 //this is used to so our maintenance page
 app.use((req, res, next) => {
-    res.render("maintenance.hbs");
+    // res.render("maintenance.hbs"); //we can un comment this line and comment the next() in other for us to show maintenace messages in all our page
+    next() //this next will make our app to run instead of it showing site under maintenance
 });
 app.use(express.static(__dirname + "/public")); //this get the help.html page
 
@@ -74,7 +75,8 @@ res.send({
 })
 });
 
-app.listen(3000, () => {
+//the port we declared above is used here for listen/serving up our app
+app.listen(port, () => {
     //this func help us to do something onces the server is up
-    console.log("Server is up on port 3000")//this is printed on our cmd prompt
+    console.log(`Server is up on port ${port}`)//this is printed on our cmd prompt
 }); //this bond of app to localhost 3000
