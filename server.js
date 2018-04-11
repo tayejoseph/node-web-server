@@ -1,7 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');// I think fs means file system
-const port = process.env.PORT || 3000; //this is used to set port for heroku and port for our local server
+const port = process.env.PORT || 3000; //this is used to set port for heroku or port for our local server
 
 
 const app = express();
@@ -70,10 +70,16 @@ res.render("about.hbs", {
 });
 
 app.get("/bad", (req, res) => {
-res.send({
+res.send({//this send a json to the /bad webpage
     error: "Http not found"
 })
 });
+
+app.get("/project", (req, res) => {
+    res.render("project.hbs", {
+        title: "Portfolio Page Here"
+    });
+})
 
 //the port we declared above is used here for listen/serving up our app
 app.listen(port, () => {
